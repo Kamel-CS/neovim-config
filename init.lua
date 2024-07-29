@@ -1,5 +1,11 @@
 vim.cmd("set rnu")
 vim.cmd("set number")
+
+vim.cmd("set tabstop=4")
+vim.cmd("set shiftwidth=4")
+vim.cmd("set softtabstop=4")
+vim.cmd("set expandtab")
+
 vim.g.mapleader = " "
 
 
@@ -22,6 +28,7 @@ local plugins = {
     		'nvim-telescope/telescope.nvim', tag = '0.1.8',
       		dependencies = { 'nvim-lua/plenary.nvim' }
     	},
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 	{
     		"nvim-neo-tree/neo-tree.nvim",
     		branch = "v3.x",
@@ -39,5 +46,13 @@ local builtin = require("telescope.builtin")
 vim.keymap.set('n', '<C-p>', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<C-n>', ':Neotree filesystem reveal left<CR>', {})
+
+local config = require("nvim-treesitter.configs")
+config.setup({
+    ensure_installed = {"lua", "python", "java", "json", "c", "html", "css", "css", "javascript"},
+    highlight = {enable = true},
+    indent = {enable = true}
+})
+
 require("catppuccin").setup()
 vim.cmd.colorscheme "catppuccin"
